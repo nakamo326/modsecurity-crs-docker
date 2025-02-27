@@ -96,7 +96,7 @@ function "vtag" {
 group "default" {
     targets = [
         "apache",
-        "nginx"
+        # "nginx"
     ]
 }
 
@@ -118,13 +118,13 @@ target "platforms-base" {
 target "apache" {
     matrix = {
         base = [
-            {
-                name = "debian"
-                dockerfile="apache/Dockerfile"
-                image = "docker-image://httpd:${httpd-version}"
-                lua_modules = join(" ", lua-modules-debian)
-                tag_base = "apache"
-            },
+            # {
+            #     name = "debian"
+            #     dockerfile="apache/Dockerfile"
+            #     image = "docker-image://httpd:${httpd-version}"
+            #     lua_modules = join(" ", lua-modules-debian)
+            #     tag_base = "apache"
+            # },
             {
                 name = "alpine"
                 dockerfile = "apache/Dockerfile-alpine"
