@@ -31,7 +31,6 @@ jobs:
     needs:
       - prepare
     strategy:
-      max-parallel: 1
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
@@ -109,6 +108,10 @@ jobs:
             grep -q "Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS" headers.txt
             grep -q "Access-Control-Allow-Headers: *" headers.txt
           fi
+
+      - name: sleep if nginx-debian-writable
+        if: ${{ matrix.target == 'nginx-debian-writable' }}
+        run: sleep 60
 
       - name: Checkout CRS
         uses: actions/checkout@v4
