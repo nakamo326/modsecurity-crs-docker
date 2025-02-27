@@ -152,13 +152,13 @@ target "apache" {
 target "nginx" {
     matrix = {
         base = [
-            {
-                name = "debian"
-                dockerfile = "nginx/Dockerfile"
-                image = "docker-image://nginxinc/nginx-unprivileged:${nginx-version}"
-                lua_modules = join(" ", lua-modules-debian)
-                tag_base = "nginx"
-            },
+            # {
+            #     name = "debian"
+            #     dockerfile = "nginx/Dockerfile"
+            #     image = "docker-image://nginxinc/nginx-unprivileged:${nginx-version}"
+            #     lua_modules = join(" ", lua-modules-debian)
+            #     tag_base = "nginx"
+            # },
             {
                 name = "alpine"
                 dockerfile = "nginx/Dockerfile-alpine"
