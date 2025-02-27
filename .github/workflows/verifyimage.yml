@@ -134,8 +134,7 @@ jobs:
           modsec_version="${{ contains(matrix.target, 'apache') && 'modsec2-apache' || 'modsec3-nginx' }}"
           backend="${{ contains(matrix.target, 'apache') && 'httpd' || 'nginx' }}"
           mkdir -p "tests/logs/${modsec_version}/{nginx,apache2}"
-          docker compose -f ./tests/docker-compose.yml up -d "${modsec_version}"
-          sleep 30
+          docker compose -f ./tests/docker-compose.yml up --wait -d "${modsec_version}"
           docker compose -f ./tests/docker-compose.yml logs
           if ! [ "$(docker inspect ${modsec_version} --format='{{.State.Running}}')" = "true" ]; then
             echo "Web server failed to start. Aborting."
