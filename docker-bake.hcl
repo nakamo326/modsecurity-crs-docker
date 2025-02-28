@@ -96,7 +96,7 @@ function "vtag" {
 group "default" {
     targets = [
         "apache",
-        "nginx"
+        # "nginx"
     ]
 }
 
@@ -118,20 +118,20 @@ target "platforms-base" {
 target "apache" {
     matrix = {
         base = [
-            {
-                name = "debian"
-                dockerfile="apache/Dockerfile"
-                image = "docker-image://httpd:${httpd-version}"
-                lua_modules = join(" ", lua-modules-debian)
-                tag_base = "apache"
-            },
             # {
-            #     name = "alpine"
-            #     dockerfile = "apache/Dockerfile-alpine"
-            #     image = "docker-image://httpd:${httpd-version}-alpine"
-            #     lua_modules = join(" ", lua-modules-alpine)
-            #     tag_base = "apache-alpine"
-            # }
+            #     name = "debian"
+            #     dockerfile="apache/Dockerfile"
+            #     image = "docker-image://httpd:${httpd-version}"
+            #     lua_modules = join(" ", lua-modules-debian)
+            #     tag_base = "apache"
+            # },
+            {
+                name = "alpine"
+                dockerfile = "apache/Dockerfile-alpine"
+                image = "docker-image://httpd:${httpd-version}-alpine"
+                lua_modules = join(" ", lua-modules-alpine)
+                tag_base = "apache-alpine"
+            }
         ]
     }
 
@@ -159,13 +159,13 @@ target "nginx" {
                 lua_modules = join(" ", lua-modules-debian)
                 tag_base = "nginx"
             },
-            # {
-            #     name = "alpine"
-            #     dockerfile = "nginx/Dockerfile-alpine"
-            #     image = "docker-image://nginxinc/nginx-unprivileged:${nginx-version}-alpine"
-            #     lua_modules = join(" ", lua-modules-alpine)
-            #     tag_base = "nginx-alpine"
-            # }
+            {
+                name = "alpine"
+                dockerfile = "nginx/Dockerfile-alpine"
+                image = "docker-image://nginxinc/nginx-unprivileged:${nginx-version}-alpine"
+                lua_modules = join(" ", lua-modules-alpine)
+                tag_base = "nginx-alpine"
+            }
         ],
         read-only-fs = [
             {

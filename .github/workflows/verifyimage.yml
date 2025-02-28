@@ -7,7 +7,7 @@ on:
 env:
   # sha256sum format: <hash><space><format (space for text)><file name>
   MODSECURITY_RECOMMENDED: "ccff8ba1f12428b34ff41960d8bf773dd9f62b9a7c77755247a027cb01896d4f  modsecurity.conf-recommended"
-  GO_FTW_VERSION: '1.3.0'
+  GO_FTW_VERSION: "1.3.0"
 
 jobs:
   prepare:
@@ -133,7 +133,8 @@ jobs:
           modsec_version="${{ contains(matrix.target, 'apache') && 'modsec2-apache' || 'modsec3-nginx' }}"
           backend="${{ contains(matrix.target, 'apache') && 'httpd' || 'nginx' }}"
           mkdir -p "tests/logs/${modsec_version}/{nginx,apache2}"
-          docker compose -f ./tests/docker-compose.yml up -d "${modsec_version}"
+          docker compose -f ./tests/docker-compose.yml up --wait -d "${modsec_version}"
+          sleep 20
           docker compose -f ./tests/docker-compose.yml logs
           if ! [ "$(docker inspect ${modsec_version} --format='{{.State.Running}}')" = "true" ]; then
             echo "Web server failed to start. Aborting."
